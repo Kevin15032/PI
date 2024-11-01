@@ -17,13 +17,13 @@
 <div class="container my-4">
   <h1 class="text-center font-weight-bold mb-4">Generación de Reportes de Ventas</h1>
   
-  <!-- Date Range and Filters -->
+  
   <div class="row mb-4">
     <div class="col-md-6">
       <div class="card">
         <div class="card-header font-weight-bold">Rango de Fechas</div>
         <div class="card-body">
-          <!-- Calendar input (placeholder) -->
+         
           <input type="date" class="form-control mb-2" placeholder="Desde">
           <input type="date" class="form-control" placeholder="Hasta">
         </div>
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <!-- Tabs for Sales Report and Inventory Report -->
+
   <ul class="nav nav-tabs mb-4">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#sales">Reporte de Ventas</a>
@@ -65,18 +65,18 @@
   </ul>
 
   <div class="tab-content">
-    <!-- Sales Report Tab -->
+   
     <div id="sales" class="tab-pane active">
       <div class="card mb-4">
         <div class="card-header font-weight-bold">Reporte de Ventas</div>
         <div class="card-body">
-          <!-- Chart Placeholder -->
-          <canvas id="salesChart" width="100%" height="300"></canvas>
+          
+          <canvas id="salesChart" width="100%" height="45"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- Inventory Report Tab -->
+    
     <div id="inventory" class="tab-pane fade">
       <div class="card mb-4">
         <div class="card-header font-weight-bold">Reporte de Inventario</div>
@@ -110,25 +110,25 @@
     </div>
   </div>
 
-  <!-- Action Buttons -->
+  
   <div class="d-flex justify-content-end mb-4">
     <button class="btn btn-outline-secondary mx-1">Exportar a Excel</button>
     <button class="btn btn-outline-secondary mx-1">Exportar a PDF</button>
     <button class="btn btn-outline-secondary mx-1">Imprimir</button>
   </div>
 
-  <!-- Financial Summary -->
+  
   <div class="card">
     <div class="card-header font-weight-bold">Resumen Financiero</div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <h5 class="font-weight-bold">Ingresos vs Costos</h5>
-          <canvas id="incomeCostChart" width="100%" height="200"></canvas>
+          <canvas id="incomeCostChart" width="100%" height="100"></canvas>
         </div>
         <div class="col-md-6">
           <h5 class="font-weight-bold">Comparación de Ingresos</h5>
-          <canvas id="incomeComparisonChart" width="100%" height="200"></canvas>
+          <canvas id="incomeComparisonChart" width="100%" height="100"></canvas>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  // Initialize Chart.js charts (dummy data for illustration)
+  
   var ctx1 = document.getElementById('salesChart').getContext('2d');
   new Chart(ctx1, { type: 'bar', data: { labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'], datasets: [{ label: 'Ventas', data: [4000, 3000, 2000, 2780, 1890, 2390], backgroundColor: '#8884d8' }, { label: 'Costos', data: [2400, 1398, 9800, 3908, 4800, 3800], backgroundColor: '#82ca9d' }] } });
 
