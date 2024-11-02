@@ -43,13 +43,17 @@ class ControladorVistas extends Controller
     $productos = [
         (object) ['nombre' => 'Producto 1', 'precio' => 10, 'stock' => 5],
         (object) ['nombre' => 'Producto 2', 'precio' => 20, 'stock' => 3],
-        (object) ['nombre' => 'Producto 3', 'precio' => 30, 'stock' => 0],
+        (object) ['nombre' => 'Producto 3', 'precio' => 30, 'stock' => 10],
     ];
 
-    $busqueda = $request->input('busqueda');
-    $resultados = collect($productos)->filter(function ($producto) use ($busqueda) {
-        return stripos($producto->nombre, $busqueda) !== false;
+    $resultados = collect($productos)->filter(function($producto) use ($request) {
+        return stripos($producto->nombre, $request->busqueda) !== false;
     });
+
+    // Verifica si se encontraron resultados
+    if ($resultados->isEmpty()) {
+        return back()->with('mensaje', 'No se encontraron resultados para la búsqueda: ' . $request->busqueda);
+    }
 
     return view('ventas', compact('resultados'));
 }
