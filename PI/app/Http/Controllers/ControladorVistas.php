@@ -34,10 +34,23 @@ class ControladorVistas extends Controller
     {
         return view('ventas');
     }
-    public function buscarProducto(validadorVenta $request)
-    {
-    $busqueda = $request->input('busqueda');
+    public function buscarProducto(Request $request)
+{
+    $request->validate([
+        'busqueda' => 'required|string|max:255',
+    ]);
 
-    $resultados = Producto::where('nombre', 'like', '%' . $busqueda . '%')->get();
-    return view('ventas', compact('resultados'))->with('message', 'Búsqueda realizada con éxito.');}
+    $productos = [
+        (object) ['nombre' => 'Producto 1', 'precio' => 10, 'stock' => 5],
+        (object) ['nombre' => 'Producto 2', 'precio' => 20, 'stock' => 3],
+        (object) ['nombre' => 'Producto 3', 'precio' => 30, 'stock' => 0],
+    ];
+
+    $busqueda = $request->input('busqueda');
+    $resultados = collect($productos)->filter(function ($producto) use ($busqueda) {
+        return stripos($producto->nombre, $busqueda) !== false;
+    });
+
+    return view('ventas', compact('resultados'));
+}
 }
