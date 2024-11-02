@@ -13,6 +13,7 @@ use App\Http\Controllers\ControladorVistas;
 Route::get('/',[ControladorVistas::class,'sesion'])->name('rutaSesion');
 Route::get('/inicio',[ControladorVistas::class,'inicio'])->name('rutaInicio');
 Route::get('/ventas',[ControladorVistas::class,'ventas'])->name('rutaVentas');
+Route::post('/buscar-producto', [ControladorVistas::class, 'buscarProducto'])->name('buscarProducto');
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
 Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
 Route::get('/usuarios',[ControladorVistas::class,'usuario'])->name('rutaUsuarios');

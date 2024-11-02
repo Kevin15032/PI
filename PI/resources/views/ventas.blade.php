@@ -1,65 +1,52 @@
 @extends('layouts.nav')
 
 @section('contenido')
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Punto de Venta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
 <div class="container my-4">
     <h1 class="text-center mb-4">Sistema de Punto de Venta</h1>
-    
+
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif 
+
+    @if(isset($resultados) && $resultados->isNotEmpty())
+        <h2>Resultados de la búsqueda:</h2>
+        <ul>
+            @foreach($resultados as $producto)
+                <li>{{ $producto->nombre }}</li>
+            @endforeach
+        </ul>
+    @else
+        <p>No se encontraron resultados.</p>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="row">
-        <!-- Búsqueda de Productos -->
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-header">
                     <h5>Búsqueda de Productos</h5>
                 </div>
                 <div class="card-body">
-                    <input type="text" class="form-control mb-3" placeholder="Buscar producto por nombre o código">
-                    <div class="table-responsive" style="max-height: 300px;">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Stock</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Producto 1</td>
-                                    <td>$10.00</td>
-                                    <td>100</td>
-                                    <td><button class="btn btn-primary btn-sm">Agregar</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Producto 2</td>
-                                    <td>$15.50</td>
-                                    <td>50</td>
-                                    <td><button class="btn btn-primary btn-sm">Agregar</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Producto 3</td>
-                                    <td>$5.75</td>
-                                    <td>200</td>
-                                    <td><button class="btn btn-primary btn-sm">Agregar</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <form action="{{ route('buscarProducto') }}" method="POST">
+                        @csrf
+                        <input type="text" name="busqueda" class="form-control mb-3" placeholder="Buscar producto por nombre" value="{{ old('busqueda') }}" required>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Carrito de Compras -->
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-header">
@@ -80,10 +67,14 @@
                             <tbody>
                                 <tr>
                                     <td>Producto 1</td>
-                                    <td><input type="number" class="form-control form-control-sm" value="1" min="1" style="width: 60px;"></td>
+                                    <td>
+                                        <input type="number" class="form-control form-control-sm" value="1" min="1" style="width: 60px;" required>
+                                    </td>
                                     <td>$10.00</td>
                                     <td>$10.00</td>
-                                    <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -96,7 +87,7 @@
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <span>Descuento:</span>
-                            <input type="number" class="form-control form-control-sm" style="width: 80px;">
+                            <input type="number" class="form-control form-control-sm" style="width: 80px;" required>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <span>Total:</span>
@@ -104,7 +95,7 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <label>Método de Pago:</label>
-                            <select class="form-select form-select-sm" style="width: 150px;">
+                            <select class="form-select form-select-sm" style="width: 150px;" required>
                                 <option value="efectivo">Efectivo</option>
                                 <option value="tarjeta">Tarjeta</option>
                                 <option value="otro">Otro</option>
@@ -112,7 +103,7 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <label>Monto Recibido:</label>
-                            <input type="number" class="form-control form-control-sm" style="width: 80px;">
+                            <input type="number" class="form-control form-control-sm" style="width: 80px;" required>
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <span>Cambio:</span>
@@ -127,9 +118,37 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="table-responsive" style="max-height: 300px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(isset($resultados) && $resultados->isNotEmpty())
+                            @foreach($resultados as $producto)
+                                <tr>
+                                    <td>{{ $producto->nombre }}</td>
+                                    <td>{{ $producto->precio }}</td>
+                                    <td>{{ $producto->stock }}</td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm">Seleccionar</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <!-- Recibo de Venta -->
     <div class="card mt-4">
         <div class="card-header">
             <h5>Recibo de Venta</h5>
@@ -163,7 +182,6 @@
         </div>
     </div>
 
-    <!-- Historial de Ventas Diarias -->
     <div class="card mt-4">
         <div class="card-header">
             <h5>Historial de Ventas Diarias</h5>
@@ -198,7 +216,4 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
 @endsection
