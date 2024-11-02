@@ -19,6 +19,7 @@ class ControladorVistas extends Controller
     public function inventario()
     {
         return view('inventario');
+       
     }
     public function reporte()
     {
