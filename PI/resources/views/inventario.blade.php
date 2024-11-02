@@ -87,6 +87,11 @@
             font-size: 1.25rem;
             margin-bottom: 1rem;
         }
+        .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -141,6 +146,7 @@
         <div>
             <label>Nombre:</label>
             <input type="text" class="input" id="new-product-name">
+            <div class="error" id="name-error"></div>
         </div>
         <div>
             <label>Categoría:</label>
@@ -149,14 +155,17 @@
                 <option value="Ropa">Ropa</option>
                 <option value="Hogar">Hogar</option>
             </select>
+            <div class="error" id="category-error"></div>
         </div>
         <div>
             <label>Stock Inicial:</label>
             <input type="number" class="input" id="new-product-stock">
+            <div class="error" id="stock-error"></div>
         </div>
         <div>
             <label>Precio:</label>
-            <input type="number" class="input" id="new-product-price">
+            <input type="number" class="input" id="new-product-price" step="0.01">
+            <div class="error" id="price-error"></div>
         </div>
         <button class="btn" onclick="addProduct()">Agregar Producto</button>
         <button class="btn" onclick="closeDialog()">Cancelar</button>
@@ -170,10 +179,61 @@
     }
     function closeDialog() {
         document.getElementById('dialog').classList.remove('open');
+        clearErrors();
     }
+
+    function clearErrors() {
+        document.getElementById('name-error').innerText = '';
+        document.getElementById('category-error').innerText = '';
+        document.getElementById('stock-error').innerText = '';
+        document.getElementById('price-error').innerText = '';
+    }
+
+    function validateFields(name, category, stock, price) {
+        let isValid = true;
+
+        if (!name) {
+            document.getElementById('name-error').innerText = 'El nombre es obligatorio.';
+            isValid = false;
+        }
+        if (!category) {
+            document.getElementById('category-error').innerText = 'La categoría es obligatoria.';
+            isValid = false;
+        }
+        if (!stock || stock < 1) {
+            document.getElementById('stock-error').innerText = 'El stock debe ser un número entero mayor o igual a 1.';
+            isValid = false;
+        }
+        if (price === null || price < 0) {
+            document.getElementById('price-error').innerText = 'El precio debe ser un número mayor o igual a 0.';
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     function addProduct() {
-        // Añadir funcionalidad para agregar nuevo producto
-        closeDialog();
+        const name = document.getElementById('new-product-name').value;
+        const category = document.getElementById('new-product-category').value;
+        const stock = parseInt(document.getElementById('new-product-stock').value, 10);
+        const price = parseFloat(document.getElementById('new-product-price').value);
+
+        if (validateFields(name, category, stock, price)) {
+            // Aquí puedes agregar el nuevo producto a la lista
+            // Ejemplo: 
+            const productList = document.getElementById('product-list');
+            const newRow = `
+                <tr>
+                    <td>${name}</td>
+                    <td>${category}</td>
+                    <td>${stock}</td>
+                    <td>$${price.toFixed(2)}</td>
+                    <td><button class="btn-delete">Eliminar</button></td>
+                </tr>
+            `;
+            productList.insertAdjacentHTML('beforeend', newRow);
+            closeDialog();
+        }
     }
 </script>
 
