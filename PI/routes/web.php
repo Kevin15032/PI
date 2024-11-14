@@ -22,6 +22,8 @@ Route::post('/agregar-al-carrito', [VentasController::class, 'agregarAlCarrito']
 Route::post('/eliminar-del-carrito', [VentasController::class, 'eliminarDelCarrito'])->name('eliminarDelCarrito');
 Route::post('/cancelar-venta', [VentasController::class, 'cancelarVenta'])->name('cancelarVenta');
 Route::post('/finalizar-venta', [VentasController::class, 'finalizarVenta'])->name('finalizarVenta');
+// validador de sesion
+Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion']);
 
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
 Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
