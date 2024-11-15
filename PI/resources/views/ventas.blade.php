@@ -25,7 +25,6 @@
         @endforeach
     @endif
 
-    {{-- Título principal --}}
     <h1 class="text-center mb-4">Sistema de Punto de Venta</h1>
 
     {{-- Errores de validación --}}
@@ -169,7 +168,6 @@
                             <span>$0.00</span>
                         </div>
 
-                        {{-- Botones de acción --}}
                         <div class="d-flex justify-content-end mt-4">
                             <button class="btn btn-secondary me-2">Cancelar Venta</button>
                             <button class="btn btn-success">Finalizar Venta</button>
