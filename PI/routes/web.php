@@ -14,5 +14,8 @@ Route::get('/',[ControladorVistas::class,'sesion'])->name('rutaSesion');
 Route::get('/inicio',[ControladorVistas::class,'inicio'])->name('rutaInicio');
 Route::get('/ventas',[ControladorVistas::class,'ventas'])->name('rutaVentas');
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
-Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
+// Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
 Route::get('/usuarios',[ControladorVistas::class,'usuario'])->name('rutaUsuarios');
+
+//Ruta Reportes
+Route::get('/reporte/create',[reporteController::class,'create'])->name('rutaReportes');
