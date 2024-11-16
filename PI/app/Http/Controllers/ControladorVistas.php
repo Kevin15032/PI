@@ -26,7 +26,7 @@ class ControladorVistas extends Controller
 
     public function reporte()
     {
-        return view('reporte');
+        // return view('reporte');
     }
 
     public function usuario()
