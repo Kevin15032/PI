@@ -113,7 +113,6 @@
         </label>
     </div>
 
-    <!-- Lista de productos -->
     <table class="table">
         <thead>
             <tr>
@@ -125,7 +124,6 @@
             </tr>
         </thead>
         <tbody id="product-list">
-            <!-- Ejemplo de fila con stock bajo -->
             <tr class="bg-red">
                 <td>Producto A</td>
                 <td>Electrónica</td>
@@ -133,14 +131,11 @@
                 <td>$29.99</td>
                 <td><button class="btn-delete">Eliminar</button></td>
             </tr>
-            <!-- Agregar más filas dinámicamente -->
         </tbody>
     </table>
 
-    <!-- Botón para agregar un nuevo producto -->
     <button class="btn" onclick="openDialog()">Agregar Producto</button>
 
-    <!-- Diálogo para agregar un nuevo producto -->
     <div class="dialog" id="dialog">
         <div class="dialog-header">Agregar Nuevo Producto</div>
         <div>
@@ -219,8 +214,6 @@
         const price = parseFloat(document.getElementById('new-product-price').value);
 
         if (validateFields(name, category, stock, price)) {
-            // Aquí puedes agregar el nuevo producto a la lista
-            // Ejemplo: 
             const productList = document.getElementById('product-list');
             const newRow = `
                 <tr>
