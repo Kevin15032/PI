@@ -19,3 +19,5 @@ Route::get('/usuarios',[ControladorVistas::class,'usuario'])->name('rutaUsuarios
 
 //Ruta Reportes
 Route::get('/reporte/create',[reporteController::class,'create'])->name('rutaReportes');
+// sesion
+Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes');
