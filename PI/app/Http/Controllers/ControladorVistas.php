@@ -31,12 +31,36 @@ class ControladorVistas extends Controller
 
     public function usuario()
     {
-        return view('usuarios');
+        return view('usuario');
+    }
+    
+    public function categoria()
+    {
+        return view('categorias');
     }
 
+    public function productos()
+    {
+        
+        return view('productos');
+    }
+
+    public function proveedores()
+    {
+        return view('provedores');
+    }
     public function ventas()
     {
         return view('ventas');
+    }
+
+    public function perfil()
+    {
+        return view('perfil');
+    }
+    public function configure()
+    {
+        return view('Configuracion');
     }
 
     public function ValidadorSesion( ValidadorSesion $peticion)
