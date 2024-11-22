@@ -20,5 +20,10 @@ Route::get('/usuarios',[ControladorVistas::class,'usuario'])->name('rutaUsuarios
 //Ruta Reportes
 Route::get('/reporte/create',[reporteController::class,'create'])->name('rutaReportes');
 // sesion
-Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
+// Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
 
+Route::get('/sesion', [ControladorVistas::class, 'sesion'])->name('sesion');
+Route::get('/register', [ControladorVistas::class, 'registerForm'])->name('register');
+Route::post('/register', [ControladorVistas::class, 'register'])->name('register.submit');
+Route::get('/sesion', [ControladorVistas::class, 'loginForm'])->name('login');
+Route::post('/login', [ControladorVistas::class, 'login'])->name('login.submit');

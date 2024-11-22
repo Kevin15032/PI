@@ -9,9 +9,30 @@ use  App\Http\Requests\ValidadorSesion;
 
 class ControladorVistas extends Controller
 {
-    public function sesion()
+    public function loginForm()
     {
-        return view('sesion');
+    return view('sesion');
+    }   
+    public function registerForm() {
+    return view('registro'); 
+    }
+    public function register(ValidadorSesion $request)
+    {
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+        ]);
+        return redirect()->route('login')->with('success', 'Usuario registrado correctamente');
+    }
+    public function login(ValidadorSesion $request)
+    {
+        if (Auth::attempt($request->only('username', 'password'))) {
+            return redirect()->route('home')->with('success', 'Sesión iniciada correctamente');
+        }
+        return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
     }
 
     public function inicio()
@@ -38,15 +59,5 @@ class ControladorVistas extends Controller
     {
         return view('ventas');
     }
-
-    public function ValidadorSesion( ValidadorSesion $peticion)
-    {
-
-    $usuario = $peticion->input('username');
-    session()->flash('exito','Vienvenido de nuevo'. $usuario);
-
-      return to_route('rutaInicio');
-    }
     
-
 }
