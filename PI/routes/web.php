@@ -33,4 +33,5 @@ Route::get('/configure', [ControladorVistas::class, 'configure'])->name('rutaCon
 //Ruta Reportes
 
 // sesion
-Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes');
+Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
+
