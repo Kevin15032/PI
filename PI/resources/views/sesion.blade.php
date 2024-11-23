@@ -58,14 +58,14 @@
     <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
       <div class="card-body">
         <h4 class="text-center mb-4">Iniciar Sesión</h4>
-        <form action="{{route('login.submit')}}" method="POST">
+        <form action="{{ route('login.submit') }}" method="POST">
           @csrf
           <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico:</label>
             <input type="email" name="email" placeholder="Correo electrónico" required>
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
+            <label for="password" class="form-label">Contraseña:</label>
             <input type="password" name="password" placeholder="Contraseña" required>
           </div>
           <div class="mb-3 form-check">

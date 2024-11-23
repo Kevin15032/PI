@@ -12,7 +12,7 @@ use App\Http\Controllers\configuracionController;
 // Route::view('/usuarios','usuarios')->name('rutaUsuarios');
 
 Route::get('/', [ControladorVistas::class, 'sesion'])->name('sesion');
-Route::post('/login', [ControladorVistas::class, 'login'])->name('login.submit');
+Route::post('/custom-login', [ControladorVistas::class, 'login'])->name('login.submit');
 Route::get('/inicio',[ControladorVistas::class,'inicio'])->name('rutaInicio');
 Route::get('/ventas',[ControladorVistas::class,'ventas'])->name('rutaVentas');
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
