@@ -14,7 +14,7 @@ class ValidadorSesion extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|min:4|max:20',
+            'email' => 'required|email|min:5|max:255',
             'password' => 'required|min:6|max:20',
         ];
     }

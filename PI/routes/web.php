@@ -36,3 +36,7 @@ Route::get('/configure', [configuracionController::class, 'index'])->name('rutaC
 
 // sesion
 // Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

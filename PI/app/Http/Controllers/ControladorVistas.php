@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Importar Auth
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ValidadorSesion;
+use App\Models\User; 
 
 class ControladorVistas extends Controller
 {
@@ -12,14 +13,14 @@ class ControladorVistas extends Controller
     {
         return view('sesion');
     }
-    public function login(ValidadorSesion $request)
-{
-    if ($request->username === 'admin' && $request->password === 'admin123') {
+    public function login(Request $request)
+    {
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
         return redirect()->route('rutaInicio')->with('exito', 'Sesión iniciada correctamente');
     }
     return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
 }
-
 
     public function inicio()
     {
