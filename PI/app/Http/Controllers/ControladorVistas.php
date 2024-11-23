@@ -15,7 +15,7 @@ class ControladorVistas extends Controller
     public function login(ValidadorSesion $request)
 {
     if ($request->username === 'admin' && $request->password === 'admin123') {
-        return redirect()->route('rutaInicio')->with('success', 'Sesión iniciada correctamente');
+        return redirect()->route('rutaInicio')->with('exito', 'Sesión iniciada correctamente');
     }
     return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
 }
