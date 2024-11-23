@@ -74,9 +74,15 @@
           </div>
           <button type="submit" class="btn btn-primary w-100">Ingresar</button>
         </form>
-        @error('login')
-        <div class="error">{{ $message }}</div>
-        @enderror
+        @if ($errors->any())
+        <div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+  </div>
+  @endif
       </div>
     </div>
   </div>

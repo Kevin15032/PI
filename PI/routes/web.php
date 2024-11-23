@@ -27,16 +27,14 @@ Route::get('/proveedores', [ControladorVistas::class, 'proveedores'])->name('rut
 Route::get('/perfil', [ControladorVistas::class, 'perfil'])->name('rutaPerfil');
 Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
 
-
 // Route::get('/createU', [ControladorVistas::class, 'crearusuario'])->name('usuarios.create');
 // Route::get('/edit/{id}', [ControladorVistas::class, 'editarusuario'])->name('usuarios.edit');
 
-
-//Ruta Reportes
+// Ruta Reportes
 
 // sesion
 // Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
 
-Auth::routes();
+// Auth::routes();  <!-- ELIMINAR O COMENTAR ESTA LÍNEA -->
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

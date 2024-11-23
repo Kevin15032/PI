@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ValidadorSesion;
-use App\Models\User; 
 
 class ControladorVistas extends Controller
 {
@@ -13,14 +12,15 @@ class ControladorVistas extends Controller
     {
         return view('sesion');
     }
+
     public function login(ValidadorSesion $request)
     {
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             return redirect()->route('rutaInicio')->with('exito', 'Sesión iniciada correctamente');
         }
         return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
-    }    
+    }
 
     public function inicio()
     {
@@ -44,7 +44,6 @@ class ControladorVistas extends Controller
 
     public function productos()
     {
-        
         return view('productos');
     }
 
@@ -52,19 +51,9 @@ class ControladorVistas extends Controller
     {
         return view('provedores');
     }
+
     public function ventas()
     {
         return view('ventas');
     }
-
-    public function ValidadorSesion( ValidadorSesion $peticion)
-    {
-
-    $usuario = $peticion->input('username');
-    session()->flash('exito','Vienvenido de nuevo'. $usuario);
-
-      return to_route('rutaInicio');
-    }
-    
-
 }
