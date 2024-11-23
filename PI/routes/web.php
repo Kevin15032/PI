@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorVistas;
+use App\Http\Controllers\configuracionController;
 
 // Route::view('/','sesion')->name('rutaSesion');
 // Route::view('/inicio','inicio')->name('rutaInicio');
@@ -23,7 +24,7 @@ Route::get('/productos', [ControladorVistas::class, 'productos'])->name('rutaPro
 Route::get('/proveedores', [ControladorVistas::class, 'proveedores'])->name('rutaProveedores');
 
 Route::get('/perfil', [ControladorVistas::class, 'perfil'])->name('rutaPerfil');
-Route::get('/configure', [ControladorVistas::class, 'configure'])->name('rutaConfigure');
+Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
 
 
 // Route::get('/createU', [ControladorVistas::class, 'crearusuario'])->name('usuarios.create');
@@ -35,3 +36,6 @@ Route::get('/configure', [ControladorVistas::class, 'configure'])->name('rutaCon
 // sesion
 Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
 
+//rutas de actualizar la configuración
+Route::get('empresa/editar/{id}', [configuracionController::class, 'edit'])->name('rutaEditarEmpresa');
+Route::put('empresa/actualizar/{id}', [configuracionController::class, 'update'])->name('rutaActualizarEmpresa');
