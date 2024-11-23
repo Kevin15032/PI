@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorVistas;
+use App\Http\Controllers\configuracionController;
 
 // Route::view('/','sesion')->name('rutaSesion');
 // Route::view('/inicio','inicio')->name('rutaInicio');
@@ -16,9 +17,22 @@ Route::get('/inicio',[ControladorVistas::class,'inicio'])->name('rutaInicio');
 Route::get('/ventas',[ControladorVistas::class,'ventas'])->name('rutaVentas');
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
 // Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
-Route::get('/usuarios',[ControladorVistas::class,'usuario'])->name('rutaUsuarios');
+Route::get('/usuarios', [ControladorVistas::class, 'usuario'])->name('rutaUsuarios');
+
+Route::get('/categoria', [ControladorVistas::class, 'categoria'])->name('rutaCategorias');
+Route::get('/productos', [ControladorVistas::class, 'productos'])->name('rutaProductos');
+
+Route::get('/proveedores', [ControladorVistas::class, 'proveedores'])->name('rutaProveedores');
+
+Route::get('/perfil', [ControladorVistas::class, 'perfil'])->name('rutaPerfil');
+Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
+
+
+// Route::get('/createU', [ControladorVistas::class, 'crearusuario'])->name('usuarios.create');
+// Route::get('/edit/{id}', [ControladorVistas::class, 'editarusuario'])->name('usuarios.edit');
+
 
 //Ruta Reportes
-Route::get('/reporte/create',[reporteController::class,'create'])->name('rutaReportes');
+
 // sesion
 // Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 

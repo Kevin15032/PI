@@ -43,13 +43,36 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('rutaReportes') ? 'text-warning' : '' }}" href="{{ route('rutaReportes') }}">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('rutaCategorias') || request()->routeIs('rutaProductos') || request()->routeIs('rutaProveedores') ? 'text-warning' : '' }}" 
+                            href="#" 
+                            id="dropdownGestionProductos" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
                             <div class="d-flex flex-column align-items-center">
-                                <i class="fas fa-chart-bar fa-lg text-primary"></i>
-                                <span class="small">Reportes</span>
+                                <i class="fas fa-boxes fa-lg text-primary"></i>
+                                <span class="small">Gestión Productos</span>
                             </div>
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownGestionProductos">
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('rutaCategorias') ? 'text-warning' : '' }}" href="{{ route('rutaCategorias') }}">
+                                    Categorías
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('rutaProductos') ? 'text-warning' : '' }}" href="{{ route('rutaProductos') }}">
+                                    Productos
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('rutaProveedores') ? 'text-warning' : '' }}" href="{{ route('rutaProveedores') }}">
+                                    Proveedores
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('rutaUsuarios') ? 'text-warning' : '' }}" href="{{ route('rutaUsuarios') }}">
@@ -59,13 +82,30 @@
                             </div>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('rutaPerfil') ? 'text-warning' : '' }}" href="{{ route('rutaPerfil') }}">
+                            <div class="d-flex flex-column align-items-center">
+                                <i class="fas fa-user-circle fa-lg text-primary"></i>
+                                <span class="small">Perfil</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('rutaConfigure') ? 'text-warning' : '' }}" href="{{ route('rutaConfigure') }}">
+                            <div class="d-flex flex-column align-items-center">
+                                <i class="fas fa-user-circle fa-lg text-primary"></i>
+                                <span class="small">Configuración</span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    @yield('contenido')
-
     
+
+    @yield('contenido')
 </body>
 </html>
