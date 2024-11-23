@@ -13,14 +13,14 @@ class ControladorVistas extends Controller
     {
         return view('sesion');
     }
-    public function login(Request $request)
+    public function login(ValidadorSesion $request)
     {
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-        return redirect()->route('rutaInicio')->with('exito', 'Sesión iniciada correctamente');
-    }
-    return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
-}
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('rutaInicio')->with('exito', 'Sesión iniciada correctamente');
+        }
+        return back()->withErrors(['login' => 'Credenciales incorrectas'])->withInput();
+    }    
 
     public function inicio()
     {
