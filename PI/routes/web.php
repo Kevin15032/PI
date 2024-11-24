@@ -27,7 +27,7 @@ Route::get('/productos', [ControladorVistas::class, 'productos'])->name('rutaPro
 Route::get('/proveedores', [ControladorVistas::class, 'proveedores'])->name('rutaProveedores');
 
 Route::get('/perfil', [ControladorVistas::class, 'perfil'])->name('rutaPerfil');
-Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
+
 
 // Route::get('/createU', [ControladorVistas::class, 'crearusuario'])->name('usuarios.create');
 // Route::get('/edit/{id}', [ControladorVistas::class, 'editarusuario'])->name('usuarios.edit');

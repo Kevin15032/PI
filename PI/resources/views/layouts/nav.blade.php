@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     @vite(['resources/js/app.js'])
     <title>@yield('titulo')</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom">

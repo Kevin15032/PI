@@ -6,14 +6,15 @@
 <script>
     Swal.fire({
         title: "Respuesta del Servidor!",
-        text: '{{$value}}',
+        text: "{{ $value}}",
         icon: "success"
     });
 </script>
 @endsession
 
+
 <div class="container mt-5 col-md-8">
-@foreach ($consultaEmpresas as $empresa)
+@foreach ($empresa as $empresa)
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white d-flex justify-content-between align-items-center border-0">
             <h5 class="fs-4 text-primary mb-0">{{ $empresa->nombreEmpresa }}</h5>
@@ -31,10 +32,11 @@
         </div>
 
         <div class="card-footer bg-white border-0 text-center">
-            <a href="{{ route('rutaActualizarEmpresa', [$empresa->id]) }}" class="btn btn-warning btn-sm w-50 py-2">Actualizar</a>
+             <a href="{{ route('rutaEditarEmpresa', [$empresa->id]) }}" class="btn btn-warning btn-sm w-50 py-2">Actualizar</a>
+
         </div>
     </div>
-@endforeach
+    @endforeach
 
 <script>
     function confirmarEliminacion() {
