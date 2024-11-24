@@ -18,9 +18,10 @@
         </thead>
         <tbody>
             <tr>
-                <td>Vanessa Martínez</td>
-                <td>vanessam@gmail.com</td>
-                <td>Superadministrador</td>
+                @foreach($consultausermanagement as $usuario)
+                <td>{{$consultausermanagement->nombre}}</td>
+                <td>{{$consultausermanagement->correo}}</td>
+                <td>{{$consultausermanagement->rol}}</td>
                 <td>
                     <button type="button" class="btn btn-primary btn-sm me-2" 
                     onclick="window.location.href('{{ route('rutaEliminar', $usuario->id) }}')">

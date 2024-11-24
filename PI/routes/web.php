@@ -11,10 +11,11 @@ Route::post('/login', [ControladorVistas::class, 'login'])->name('login');
 Route::get('/inicio', [ControladorVistas::class, 'inicio'])->name('rutaInicio')->middleware('auth');
 
 // Rutas de gestión de usuarios
-Route::get('/usuarios', [ControladorVistas::class, 'usuario'])->name('rutaUsuarios'); // Vista principal
-Route::get('/usuarios/crear', [ControladorVistas::class, 'crearUsuario'])->name('rutaAgregar'); // Mostrar formulario
+Route::get('/usuarios', [ControladorVistas::class, 'index'])->name('rutaUsuarios'); // Vista principal
+Route::get('/usuarios/crear', [UserManagementController::class, 'create'])->name('rutaEnviar'); // Mostrar formulario
 Route::post('/usuarios', [UserManagementController::class, 'store'])->name('rutaEnviar'); // Guardar usuario
 Route::get('/usuarios/{id}/editar', [UserManagementController::class, 'edit'])->name('rutaEditar'); // Editar usuario
+Route::put('/usuarios/{id}', [UserManagementController::class, 'update'])->name('rutaActualizar');
 Route::delete('/usuarios/{id}', [UserManagementController::class, 'destroy'])->name('rutaEliminar'); // Eliminar usuario
 
 // Rutas adicionales

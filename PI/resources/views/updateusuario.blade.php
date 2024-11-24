@@ -45,7 +45,7 @@
         </div>
         <div class="mb-3">
           <label for="rol" class="form-label">Rol: </label>
-          <select class="form-select" id="rol" name="rol" required>
+          <select class="form-select" id="rol" name="txtrol" required>
             <option value="Superadministrador">Superadministrador</option>
             <option value="Administrador">Administrador</option>
             <option value="Usuario">Usuario</option>

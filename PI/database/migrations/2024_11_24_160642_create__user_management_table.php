@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('_user_management', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombre',150);
             $table->string('correo');
             $table->enum('rol', ['Superadministrador', 'Administrador', 'Usuario'])->default('Usuario');
             $table->timestamps();
