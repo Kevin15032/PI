@@ -46,14 +46,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-    $cliente = DB::table('_user_management')->find($id);
-    return view('updateusuario', compact('usuario'));}
+    $usuario = DB::table('_user_management')->find($id);
+    return view('updateusuario', compact('usuario'));
+}
 
 public function update(Request $request, $id){
     $validated = $request->validate([
         'txtnombre' => 'required|min:4|max:20',
         'txtcorreo' => 'required|email|max:50',
-        'txtrol' => 'required|numeric|digits:10',
+        'txtrol' => 'required|in:Superadministrador,Administrador,Usuario',
     ]);
 
     DB::table('_user_management')->where('id', $id)->update([

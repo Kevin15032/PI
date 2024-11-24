@@ -30,7 +30,7 @@
 
     <div class="card-body text-justify ">
 
-      <form action="{{route('rutaEnviar')}}" method="POST">
+      <form action="{{route('rutaActualizar')}}" method="POST">
         @csrf
 
         <div class="mb-3">
