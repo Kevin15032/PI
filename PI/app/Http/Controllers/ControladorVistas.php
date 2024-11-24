@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\validadorVenta; 
 use  App\Http\Requests\ValidadorSesion;
+use App\Http\Requests\validadorEmpresa;
+
 
 
 class ControladorVistas extends Controller

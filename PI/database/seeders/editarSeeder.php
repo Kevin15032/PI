@@ -14,11 +14,12 @@ class editarSeeder extends Seeder
     public function run(): void
     {
         DB::table('empresas')->insert([
-            [
-                'nombreEmpresa' => 'Empresa Hernandez',
-                'telefonoEmpresa' => '4455667722',
-                'direccionEmpresa' => 'Calle revolució 123, Querétaro, Querétaro',
-            ],
+            'nombreEmpresa' => 'Empresa Hernández',
+            'telefonoEmpresa' => '4455667722',
+            'direccionEmpresa' => 'Calle revolución 123, Querétaro, Querétaro',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+        
     }
 }

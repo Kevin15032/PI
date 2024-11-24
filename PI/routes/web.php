@@ -24,7 +24,7 @@ Route::get('/productos', [ControladorVistas::class, 'productos'])->name('rutaPro
 Route::get('/proveedores', [ControladorVistas::class, 'proveedores'])->name('rutaProveedores');
 
 Route::get('/perfil', [ControladorVistas::class, 'perfil'])->name('rutaPerfil');
-Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
+
 
 
 // Route::get('/createU', [ControladorVistas::class, 'crearusuario'])->name('usuarios.create');
@@ -37,5 +37,9 @@ Route::get('/configure', [configuracionController::class, 'index'])->name('rutaC
 Route::post('/sesion',[ControladorVistas::class,'ValidadorSesion'])->name('rutaReportes'); 
 
 //rutas de actualizar la configuración
-Route::get('empresa/editar/{id}', [configuracionController::class, 'edit'])->name('rutaEditarEmpresa');
-Route::put('empresa/actualizar/{id}', [configuracionController::class, 'update'])->name('rutaActualizarEmpresa');
+Route::get('/configure/{id}/edit', [configuracionController::class, 'edit'])->name('rutaEditarEmpresa');
+
+Route::put('empresa/actualizar/{id}', [ConfiguracionController::class, 'update'])->name('rutaActualizarEmpresa');
+
+Route::get('/configure', [configuracionController::class, 'index'])->name('rutaConfigure');
+

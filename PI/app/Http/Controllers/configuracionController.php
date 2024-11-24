@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use Carbon\Carbon;
+use App\Http\Requests\validardorEmpresa;
 
 
 class configuracionController extends Controller
@@ -15,8 +16,8 @@ class configuracionController extends Controller
     public function index()
     {
         
-        $consultaEmpresas = DB::table('empresas')->get();
-        return view('configuracion', compact('consultaEmpresas'));
+        $empresa = DB::table('empresas')->get();
+        return view('Configuracion', compact('empresa'));
     }
 
     /**
@@ -49,23 +50,24 @@ class configuracionController extends Controller
     public function edit(string $id)
     { 
         $empresa = DB::select('select * from empresas where id =' . $id);
-        return view('actualizarEmpresa', compact('empresa'));
+        return view('ActualizarConfig', compact('empresa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(validadorEmpresa $request, string $id)
+    public function update(validardorEmpresa $request, string $id)
     {
-        DB::table('empresa')->where('id', $id)->update([
-            "nombreEmpresa" => $request->input('nombreEmpresa'),
-            "telefonoEmpresa" => $request->input('telefonoEmpresa'),
-            "direccionEmpresa" => $request->input('direccionEmpresa'),
+        DB::table('empresas')->where('id', $id)->update([
+            "nombreEmpresa" => $request->input('txtnombre'),
+            "telefonoEmpresa" => $request->input('txttelefono'),
+            "direccionEmpresa" => $request->input('txtdireccion'),
             "updated_at" => Carbon::now(),
         ]);
-        $empresa = $request->input('nombreEmpresa');
+        $empresa = $request->input('txtnombre');
         session()->flash('Exito', 'Se actualizó la empresa: ' . $empresa);
-        return redirect()->route('rutaEmpresas'); 
+        return to_route('rutaConfigure');
+
     }
 
     /**
