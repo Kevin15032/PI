@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorVistas;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\configuracionController;
 
 // Route::view('/','sesion')->name('rutaSesion');
@@ -18,6 +19,7 @@ Route::get('/ventas',[ControladorVistas::class,'ventas'])->name('rutaVentas');
 Route::get('/inventario',[ControladorVistas::class,'inventario'])->name('rutaInventario');
 // Route::get('/reporte',[ControladorVistas::class,'reporte'])->name('rutaReportes');
 Route::get('/usuarios', [ControladorVistas::class, 'usuario'])->name('rutaUsuarios');
+Route::post('/guardar-usuario', [UserManagementController::class, 'store'])->name('rutaEnviar');
 
 Route::get('/categoria', [ControladorVistas::class, 'categoria'])->name('rutaCategorias');
 Route::get('/productos', [ControladorVistas::class, 'productos'])->name('rutaProductos');
