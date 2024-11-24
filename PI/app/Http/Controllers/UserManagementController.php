@@ -4,21 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon; 
+use App\Http\Requests\ValidadorUserManagement;
+
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function index()
     {
-        $validated = $request->validate([
-            'nombre' => 'required|min:4|max:50',
-            'correo' => 'required|email|max:50',
-            'rol' => 'required|in:Superadministrador,Administrador,Usuario',
-        ]);
-        $user = new User();
-        $user->nombre = $validated['nombre'];
-        $user->correo = $validated['correo'];
-        $user->rol = $validated['rol'];
-        $user->save();
-        return redirect()->back()->with('exito', 'Usuario creado exitosamente.');
+        $consultausermanagement=DB::table('_user_management')->get();
+        return view('usuario',compact('consultausermanagement'));
     }
+    public function create()
+    {
+        return view('nuevousuario');
+    }
+    public function store(ValidadorUserManagement $request)
+    {
+        DB::table('_user_management')->insert([
+        "nombre"=>$request->input('txtnombre'),
+        "correo"=>$request->input('txtcorreo'),
+        "rol"=>$request->rol,
+        "created at"=>Carbon::now(),
+        "updated at"=>Carbon::now(),
+        ]);
+        $usuario=$request->input('txtnombre');
+        session()->flash('exito','Se guardo el usuario: '.$usuario);
+        return to_route('rutaAgregar');
+    }
+
 }
