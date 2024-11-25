@@ -3,80 +3,66 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class VentasController extends Controller
 {
-    public function buscarProducto(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $ventas = DB::table('ventas')
+            ->join('productos', 'ventas.producto_id', '=', 'productos.id')
+            ->select('ventas.*', 'productos.nombre as producto_nombre')
+            ->get();
+
+        return view('ventas', compact('ventas'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categorias = DB::table('categorias')->get();
+        $productos = DB::table('productos')->get();
+
+        return view('nuevaventa', compact('categorias', 'productos'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         $request->validate([
-            'busqueda' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'producto' => 'required|exists:productos,id',
+            'cantidad' => 'required|integer|min:1',
+            'monto_total' => 'required|numeric|min:0',
         ]);
 
-        $productos = [
-            (object) ['nombre' => 'Producto 1', 'precio' => 10, 'stock' => 5],
-            (object) ['nombre' => 'Producto 2', 'precio' => 20, 'stock' => 3],
-            (object) ['nombre' => 'Producto 3', 'precio' => 30, 'stock' => 10],
-        ];
+        DB::table('ventas')->insert([
+            'fecha' => $request->input('fecha'),
+            'producto_id' => $request->input('producto'),
+            'cantidad' => $request->input('cantidad'),
+            'monto_total' => $request->input('monto_total'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
-        $resultados = collect($productos)->filter(function($producto) use ($request) {
-            return stripos($producto->nombre, $request->busqueda) !== false;
-        });
-
-        if ($resultados->isEmpty()) {
-            return redirect()->route('rutaVentas')->with('advertencia', 'No se encontraron resultados.');
-        }
-
-        return view('ventas', compact('resultados'));
+        return redirect()->route('rutaVentas')->with('success', 'Venta registrada con éxito.');
     }
 
-    public function agregarAlCarrito(Request $request)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
-    $carrito = session()->get('carrito', []);
+        DB::table('ventas')->where('id', $id)->delete();
 
-    $producto = [
-        'nombre' => $request->nombre,
-        'precio' => $request->precio,
-        'cantidad' => 1,
-        'subtotal' => $request->precio,
-    ];
-
-    // Si el producto ya está en el carrito, incrementa la cantidad
-    if (isset($carrito[$request->nombre])) {
-        $carrito[$request->nombre]['cantidad']++;
-        $carrito[$request->nombre]['subtotal'] = $carrito[$request->nombre]['precio'] * $carrito[$request->nombre]['cantidad'];
-    } else {
-        $carrito[$request->nombre] = $producto;
-    }
-
-    session()->put('carrito', $carrito);
-
-    return redirect()->route('rutaVentas')->with('exito', 'Producto agregado al carrito.');
-}
-
-
-public function eliminarDelCarrito(Request $request)
-{
-    $carrito = session()->get('carrito', []);
-
-    if (isset($carrito[$request->nombre])) {
-        unset($carrito[$request->nombre]);
-        session()->put('carrito', $carrito);
-    }
-
-    return redirect()->route('rutaVentas')->with('exito', 'Producto eliminado del carrito.');
-}
-
-    public function cancelarVenta()
-    {
-    session()->forget('carrito');
-    return redirect()->route('rutaVentas')->with('advertencia', 'La venta ha sido cancelada.');
-    }
-
-    public function finalizarVenta()
-    {
-    $carrito = session()->get('carrito', []);
-    $total = collect($carrito)->sum('subtotal');
-    session()->forget('carrito');
-    return redirect()->route('rutaVentas')->with('exito', 'La venta se ha completado. Total: $' . number_format($total, 2));
+        return redirect()->route('rutaVentas')->with('success', 'Venta eliminada con éxito.');
     }
 }

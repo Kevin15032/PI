@@ -2,30 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the users.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function usuario()
+    public function index()
     {
-        $users = User::all();
-        return view('usuarios.index', compact('users'));
+        $users = DB::table('users')->get();
+        return view('index', compact('users'));
     }
 
     public function create()
     {
-        $roles = Roles::all();
-        return view('usuarios.create', compact('roles'));
+        $roles = DB::table('roles')->get();
+        return view('create', compact('roles'));
     }
-
 
     public function store(Request $request)
     {
@@ -37,25 +30,26 @@ class UsersController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => $request->role_id,
-            'status' => $request->status,
+        DB::table('users')->insert([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-        return redirect()->route('rutaUsuarios')->with('success', 'Usuario creado con éxito.');
-    }
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado con éxito.');
 
+    }
 
     public function edit($id)
     {
-        $roles = Roles::all();
-        $user = User::findOrFail($id);
+        $user = DB::table('users')->where('id', $id)->first();
+        $roles = DB::table('roles')->get();
         return view('usuarios.edit', compact('user', 'roles'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -66,24 +60,30 @@ class UsersController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        $user = User::findOrFail($id);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-            'status' => $request->status,
-            // Only update the password if a new one is provided
-            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
-        ]);
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
+            'updated_at' => now(),
+        ];
 
-        return redirect()->route('rutaUsuarios')->with('success', 'Usuario actualizado con éxito.');
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->input('password'));
+        }
+
+        DB::table('users')->where('id', $id)->update($data);
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado con éxito.');
+
     }
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        DB::table('users')->where('id', $id)->delete();
 
-        return redirect()->route('rutaUsuarios')->with('success', 'Usuario eliminado con éxito.');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado con éxito.');
+
     }
 }
+

@@ -37,10 +37,10 @@ class ControladorVistas extends Controller
         return view('usuario');
     }
     
-    public function categoria()
-    {
-        return view('categorias');
-    }
+    // public function categoria()
+    
+    //     return view('categorias');
+    // }
 
     public function productos()
     {
@@ -56,4 +56,24 @@ class ControladorVistas extends Controller
     {
         return view('ventas');
     }
+
+    public function perfil()
+    {
+        return view('perfil');
+    }
+    // public function configure()
+    // {
+    //     // return view('Configuracion');
+    // }
+
+    public function ValidadorSesion( ValidadorSesion $peticion)
+    {
+
+    $usuario = $peticion->input('username');
+    session()->flash('exito','Vienvenido de nuevo'. $usuario);
+
+      return to_route('rutaInicio');
+    }
+    
+
 }
