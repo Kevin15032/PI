@@ -34,10 +34,10 @@ class ControladorVistas extends Controller
         return view('usuario');
     }
     
-    public function categoria()
-    {
-        return view('categorias');
-    }
+    // public function categoria()
+    
+    //     return view('categorias');
+    // }
 
     public function productos()
     {
@@ -61,6 +61,21 @@ class ControladorVistas extends Controller
     public function configure()
     {
         return view('Configuracion');
+    }
+
+    //Gestion de productos
+    public function gestionP()
+    {
+        return view('gestionProductos');
+    }
+
+    public function nuevacategoria()
+    {
+        //return view('nuevacategoria');
+    }
+
+    public function EntradaProductos() {
+        return view('Entrada');
     }
 
     public function ValidadorSesion( ValidadorSesion $peticion)

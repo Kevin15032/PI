@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/js/app.js'])
     <title>@yield('titulo')</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom">
@@ -27,23 +28,37 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('rutaVentas') ? 'text-warning' : '' }}" href="{{ route('rutaVentas') }}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('rutaVentas') || request()->routeIs('rutaEntrada') ? 'text-warning' : '' }}" 
+                            href="#" 
+                            id="dropdownGestionProductos" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
                             <div class="d-flex flex-column align-items-center">
-                                <i class="fas fa-shopping-cart fa-lg text-primary"></i>
-                                <span class="small">Ventas</span>
+                                <i class="fas fa-boxes fa-lg text-primary"></i>
+                                <span class="small">Gestión de Existencias</span>
                             </div>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('rutaInventario') ? 'text-warning' : '' }}" href="{{ route('rutaInventario') }}">
-                            <div class="d-flex flex-column align-items-center">
-                                <i class="fas fa-box fa-lg text-primary"></i>
-                                <span class="small">Inventario</span>
-                            </div>
-                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownGestionProductos">
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('rutaEntrada') ? 'text-warning' : '' }}" href="{{ route('rutaEntrada') }}">
+                                    Entrada
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('rutaVentas') ? 'text-warning' : '' }}" href="{{ route('rutaVentas') }}">
+                                    Venta
+                                </a>
+                            </li>
+                            
+                        </ul>
                     </li>
                     
+
+
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ request()->routeIs('rutaCategorias') || request()->routeIs('rutaProductos') || request()->routeIs('rutaProveedores') ? 'text-warning' : '' }}" 
                             href="#" 
@@ -74,14 +89,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('rutaUsuarios') ? 'text-warning' : '' }}" href="{{ route('rutaUsuarios') }}">
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('usuarios.index') ? 'text-warning' : '' }}" href="{{ route('usuarios.index') }}">
                             <div class="d-flex flex-column align-items-center">
                                 <i class="fas fa-users fa-lg text-primary"></i>
                                 <span class="small">Gestión Usuarios</span>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('rutaPerfil') ? 'text-warning' : '' }}" href="{{ route('rutaPerfil') }}">
