@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+    
     public function index()
     {
         $users = DB::table('users')->get();

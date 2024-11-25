@@ -59,6 +59,7 @@ class ControladorVistas extends Controller
     public function perfil()
     {
         return view('perfil');
+        
     }
     // public function configure()
     // {
