@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,18 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(GestionProductosSeeder::class);
-        // $this->call(ProductosSeeder::class);
-        $this->call(ProveedoresSeeder::class);
-
-        $this->call([
-            RolesTableSeeder::class,
-        ]);
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(GestionProductosSeeder::class); // Gestion de productos
+        $this->call(ProveedoresSeeder::class); // Proveedores
+        $this->call(RolesTableSeeder::class); // Roles
+        $this->call(editarSeeder::class); // Editar Seeder 
     }
 }
+?>
